@@ -1,0 +1,28 @@
+shipClass: Gameobject
+
+Needs to know:
+    What's its position?
+    What's its rotation?
+    Which model does it have?
+    Has it been hit?
+
+
+
+POSITION 
+    x and y coordinates
+
+ROTATION 
+    vertical axis: 0, 90, 180, 270
+
+    if keypress = q
+        rotate -90
+    elseif keypress = e
+        rotate 90
+
+MODEL 
+    Included with gameObject
+
+HIT? 
+    Kept track by ship, only how many hits its taken, but doesn't keep track of where
+        (The gameboard will be designed to prevent shooting at the same place twice)
+        INTERFACE SEGREGATION PRINCIPLE

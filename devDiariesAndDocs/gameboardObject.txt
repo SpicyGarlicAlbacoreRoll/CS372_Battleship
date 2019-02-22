@@ -1,0 +1,8 @@
+GAMEBOARD
+
+keeps track of where player hits
+    Player can't hit same square twice
+
+USES UNITY'S GRID
+    https://docs.unity3d.com/ScriptReference/Grid.html
+    
