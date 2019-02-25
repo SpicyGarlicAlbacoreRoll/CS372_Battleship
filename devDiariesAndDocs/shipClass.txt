@@ -5,7 +5,7 @@ struct ship
 //member variables
     vec3 position;
     qauternion rotation;
-    vec3 model;
+    mesh model;
     int health;
     bool alive;
     bool placed;
