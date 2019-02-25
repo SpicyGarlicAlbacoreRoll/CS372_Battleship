@@ -5,24 +5,36 @@ using UnityEngine;
 public class shipClass : MonoBehaviour
 {
 
-    Vector3 shipPosition = new Vector3(0,0,0);
-    Vector3 rotation = new Vector3(0, 0, 0);
+    public Vector3 shipPosition = new Vector3(0,0,0);
+   public Vector3 rotation = new Vector3(0, 0, 0);   
     int shipHealth = 1;
-     Mesh shipModel;
+//     Mesh shipModel;
     bool shipAlive = true;
     bool placed = false;
+    Vector3 ninetyDegrees = new Vector3(0, 90, 0);
+
 
     // Start is called before the first frame update
     void Start()
     {
         shipPosition = GetComponent<Transform>().position;
-        this.transform.eulerAngles = rotation;
+        rotation = this.transform.eulerAngles;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        controls();
+        GetComponent<Transform>().position = shipPosition;
+        this.transform.eulerAngles = rotation;
+    }
+
+    void controls()
+    {
+        if(Input.GetKeyDown(KeyCode.Q))
+            rotateShip(ninetyDegrees);
+        else if(Input.GetKeyDown(KeyCode.E))
+            rotateShip(-ninetyDegrees);
     }
 
     void takeDamage()
@@ -32,4 +44,12 @@ public class shipClass : MonoBehaviour
             shipAlive = false;
     }
 
+    void rotateShip(Vector3 rotateBy)
+    {
+        rotation.y += rotateBy.y;
+
+        //Resets rotation value to 0 when reaching full circle
+        if(rotation.y == 360 || rotation.y == -360)
+            rotation.y = 0;
+    }
 }
