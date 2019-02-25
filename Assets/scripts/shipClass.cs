@@ -6,9 +6,9 @@ public class shipClass : MonoBehaviour
 {
 
     public Vector3 shipPosition = new Vector3(0,0,0);
-   public Vector3 rotation = new Vector3(0, 0, 0);   
+    public Vector3 rotation = new Vector3(0, 0, 0);   
     int shipHealth = 1;
-//     Mesh shipModel;
+//  Mesh shipModel;
     bool shipAlive = true;
     bool placed = false;
     Vector3 ninetyDegrees = new Vector3(0, 90, 0);
@@ -37,12 +37,7 @@ public class shipClass : MonoBehaviour
             rotateShip(-ninetyDegrees);
     }
 
-    void takeDamage()
-    {
-        shipHealth--;
-        if (shipHealth <= 0)
-            shipAlive = false;
-    }
+    
 
     void rotateShip(Vector3 rotateBy)
     {
@@ -51,5 +46,13 @@ public class shipClass : MonoBehaviour
         //Resets rotation value to 0 when reaching full circle
         if(rotation.y == 360 || rotation.y == -360)
             rotation.y = 0;
+    }
+
+    public
+    void takeDamage()
+    {
+        --shipHealth;
+        if (shipHealth <= 0)
+            shipAlive = false;
     }
 }
