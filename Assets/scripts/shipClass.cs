@@ -15,7 +15,7 @@ public class shipClass : MonoBehaviour
     bool placed = false;
     bool isGrabbed = false;
     Vector3 ninetyDegrees = new Vector3(0, 90, 0);
-
+    public float gridUnits = 2.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -34,15 +34,49 @@ public class shipClass : MonoBehaviour
 
     void controls()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
-            rotateShip(ninetyDegrees);
-        else if(Input.GetKeyDown(KeyCode.E))
-            rotateShip(-ninetyDegrees);
+        if(isGrabbed == true)
+        {
+        shipControlRotate();
+        shipControlMove();
+        }
     }
 
-    
 
-    void rotateShip(Vector3 rotateBy)
+
+
+    void OnMouseUp()
+    {
+        if (isGrabbed == false)
+        {
+            isGrabbed = true;
+            boatGrab();
+        } else if (isGrabbed == true)
+        {
+            isGrabbed = false;
+            boatPlace();
+        }
+    }
+
+/////////////// PUBLIC FUNCTIONS /////////////////////////
+    public void takeDamage()
+    {
+        --shipHealth;
+        if (shipHealth <= 0)
+            shipAlive = false;
+    }
+
+/////////////// PRIVATE SHIP FUNCTIONS ////////////////////////
+    private void boatGrab()
+    {
+        shipPosition.y += onGrabElevation;
+    }
+
+    private void boatPlace()
+    {
+       shipPosition.y -= onGrabElevation; 
+    }
+
+        private void rotateShip(Vector3 rotateBy)
     {
         rotation.y += rotateBy.y;
 
@@ -51,31 +85,22 @@ public class shipClass : MonoBehaviour
             rotation.y = 0;
     }
 
-    void OnMouseDown()
-    {
-    boatGrab();
-    }
+/////////////// SHIP CONTROLLER FUNCTIONS /////////////////
 
-    void OnMouseUp() 
-    {
-        boatPlace();
-    }
+    void shipControlRotate()
+        {
+        if(Input.GetKeyDown(KeyCode.Q))
+            rotateShip(ninetyDegrees);
+        else if(Input.GetKeyDown(KeyCode.E))
+            rotateShip(-ninetyDegrees);
+        }
 
-    public void takeDamage()
+    void shipControlMove()
     {
-        --shipHealth;
-        if (shipHealth <= 0)
-            shipAlive = false;
-    }
-
-    void boatGrab()
-    {
-        shipPosition.y += onGrabElevation;
-    }
-
-    void boatPlace()
-    {
-       shipPosition.y -= onGrabElevation; 
+        if(Input.GetButtonDown("Horizontal"))
+            shipPosition.x += Input.GetAxisRaw("Horizontal") * gridUnits;        
+        if(Input.GetButtonDown("Vertical"))
+            shipPosition.z += Input.GetAxisRaw("Vertical") * gridUnits;   
     }
 
 }
