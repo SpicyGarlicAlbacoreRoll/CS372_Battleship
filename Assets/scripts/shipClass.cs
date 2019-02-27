@@ -7,10 +7,13 @@ public class shipClass : MonoBehaviour
 
     public Vector3 shipPosition = new Vector3(0,0,0);
     public Vector3 rotation = new Vector3(0, 0, 0);   
+
+    public float onGrabElevation = 5.0f;
     int shipHealth = 1;
 //  Mesh shipModel;
     bool shipAlive = true;
     bool placed = false;
+    bool isGrabbed = false;
     Vector3 ninetyDegrees = new Vector3(0, 90, 0);
 
 
@@ -48,11 +51,31 @@ public class shipClass : MonoBehaviour
             rotation.y = 0;
     }
 
-    public
-    void takeDamage()
+    void OnMouseDown()
+    {
+    boatGrab();
+    }
+
+    void OnMouseUp() 
+    {
+        boatPlace();
+    }
+
+    public void takeDamage()
     {
         --shipHealth;
         if (shipHealth <= 0)
             shipAlive = false;
     }
+
+    void boatGrab()
+    {
+        shipPosition.y += onGrabElevation;
+    }
+
+    void boatPlace()
+    {
+       shipPosition.y -= onGrabElevation; 
+    }
+
 }
