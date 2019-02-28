@@ -5,7 +5,7 @@ using UnityEngine;
 public class shipClass : MonoBehaviour
 {
 
-    public Vector3 shipPosition = new Vector3(0,0,0);
+    public Vector3 shipPosition;
     public Vector3 rotation = new Vector3(0, 0, 0);   
 
     public float onGrabElevation = 5.0f;
